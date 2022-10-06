@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<head>
+    <title>
+        Self-driving car (No libraries)
+    </title>
+    <link rel = "stylesheet" href = "style.css">
+</head>
+<body>
+    <section class="container">
+        <div id = "settings">
+            <h1>Choose settings for the car.</h1>
+            <label>Turning sensitivity</label>
+            <input id = "turnSensitivity" name = "turnSensitivity" type = "number" value = "0.01">
+            <label>Max speed</label>
+            <input id = "maxSpeed" name = "maxSpeed" type = "number" value = "3">
+            <label>Number of rays (sensors)</label>
+            <input id = "numRays" name = "numRays" type = "number" value = "5">
+            <label>Ray length (in pixels)</label>
+            <input id = "rayLength" name = "rayLength" type = "number" value = "150">
+            <label>Amount of traffic</label>
+            <input id = "traffic" name = "traffic" type = "number" value = "50">
+            <label>Generation size</label>
+            <input id = "genSize" name = "genSize" type = "number" value = "50">
+            <label>Mutation Value (0 < value < 1). Closer to zero creates less mutations</label>
+            <input id = "mutationValue" name = "mutationValue" type = "number" value = "0.1">
+            <div id = "inputButtons">
+                <button onclick = "run()" id = "run">Save inputs and run</button>
+                <button onclick = "window.location.reload();" id = "reset">Refresh page with default values</button>
+            </div>
+            <div id = "brainButtons">
+                <button onclick = "saveBrain()">💾 Save current leader's brain</button>
+                <button onclick = "discardBrain()">🗑️ Reset brain</button>
+            </div>
+        </div>
+    </section>
+    <canvas id = "carCanvas"></canvas>
+    <canvas id = "networkCanvas"></canvas>
+    <script src = "visualizer.js"></script>
+    <script src = "network.js"></script>
+    <script src = "utils.js"></script>
+    <script src = "controls.js"></script>
+    <script src = "sensor.js"></script>
+    <script src = "car.js"></script>
+    <script src = "road.js"></script>
+    <script src = "main.js"></script>
+</body>
+</html> 

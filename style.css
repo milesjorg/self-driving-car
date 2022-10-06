@@ -1,0 +1,83 @@
+body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: darkgray;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#brainButtons{
+    display: flex;
+    flex-direction: column;
+}
+
+#brainButtons button{
+    border: none;
+    width: 50%;
+    border-radius: 5px;
+    padding: 5px 5px 7px 5px;
+    margin: 2px;
+    cursor: pointer;
+}
+
+#brainButtons button:hover{
+    background: blue;
+}
+
+#brainButtons button:focus{
+    background: green;
+}
+
+#carCanvas{
+    background: lightgray;
+}
+
+#networkCanvas{
+    background: black;
+}
+
+#settingsCanvas{
+    background: darkgray;
+}
+
+.container{
+    height: 100%;
+    display: flex;
+}
+
+#settings{
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    width: 400px;
+    background-color: darkgray;
+    font-family: Sans-serif;
+}
+
+#settings *{
+    margin-bottom: 6px;
+}
+
+#settings label{
+    font-size: 12px;
+}
+
+#settings input{
+    width: 80%;
+}
+
+#settings button{
+    background-color: aliceblue;
+    border: none;
+    width: 80%;
+    border-radius: 4px;
+    color: black;
+    padding: 2px;
+}
+
+#settings button:active{
+    background-color: red;
+}
