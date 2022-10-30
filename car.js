@@ -6,7 +6,7 @@ class Car {
         this.height = height;
         this.rayLength = rayLength;
         this.numRays = numRays;        
-        this.turnSensitivity = turnSensitivity;
+        this.turnSensitivity = turnSensitivity * 0.005;
         this.maxSpeed = maxSpeed;
         this.speed = 0;
         this.acceleration = 0.06;

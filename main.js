@@ -9,48 +9,86 @@ const networkCtx = networkCanvas.getContext("2d");
 
 const road = new Road(carCanvas.width / 2, carCanvas.width * 0.9);
 
-window.userInputs = getUserInputs();
-setUserInputs(userInputs);
-
-let bestCar = cars[0];
-
 function run() {
-  animate();
-  window.userInputs = getUserInputs();
+  runAnimation();
   setUserInputs();
+  let bestCar = cars[0];
+}
+
+function runAnimation() {
+  var id = window.requestAnimationFrame(animate);
+  while (id--) {
+    window.cancelAnimationFrame(id)
+  }
 }
 
 function setUserInputs() {
-  window.traffic = createTraffic(userInputs.get("traffic"));
-  window.cars = generateCars(userInputs.get("genSize"));
+  traffic = createTraffic(getInputFromLocalStorage("traffic"));
+  cars = generateCars(getInputFromLocalStorage("genSize"));
 
   if (localStorage.getItem("bestBrain")) {
     for (let i = 0; i < cars.length; i++) {
-      cars[i].brain = JSON.parse(localStorage.getItem("bestBrain"));
+      cars[i].brain = getInputFromLocalStorage("bestBrain");
       if (i != 0) {
-        NeuralNetwork.mutate(cars[i].brain, userInputs.get("mutationValue"));
+        NeuralNetwork.mutate(cars[i].brain, getInputFromLocalStorage("mutationValue"));
       }
     }
   }
 }
 
-function getUserInputs() {
-  let userInputs = new Map();
-  userInputs.set(
+function saveInputsToLocalStorage() {
+  localStorage.setItem(
     "turnSensitivity",
-    document.getElementById("turnSensitivity").value
+    JSON.stringify(document.getElementById("turnSensitivity").value)
   );
-  userInputs.set("maxSpeed", document.getElementById("maxSpeed").value);
-  userInputs.set("numRays", document.getElementById("numRays").value);
-  userInputs.set("rayLength", document.getElementById("rayLength").value);
-  userInputs.set("traffic", document.getElementById("traffic").value);
-  userInputs.set("genSize", document.getElementById("genSize").value);
-  userInputs.set(
+  localStorage.setItem(
+    "maxSpeed",
+    JSON.stringify(document.getElementById("maxSpeed").value)
+  );
+  localStorage.setItem(
+    "numRays",
+    JSON.stringify(document.getElementById("numRays").value)
+  );
+  localStorage.setItem(
+    "rayLength",
+    JSON.stringify(document.getElementById("rayLength").value)
+  );
+  localStorage.setItem(
+    "traffic",
+    JSON.stringify(document.getElementById("traffic").value)
+  );
+  localStorage.setItem(
+    "genSize",
+    JSON.stringify(document.getElementById("genSize").value)
+  );
+  localStorage.setItem(
     "mutationValue",
-    document.getElementById("mutationValue").value
+    JSON.stringify(document.getElementById("mutationValue").value)
   );
+}
 
-  return userInputs;
+// fills values from localStorage if exists
+function fillFormFields() {
+  if (localStorage.getItem("maxSpeed") != "") {
+    document.getElementById("turnSensitivity").value =
+      getInputFromLocalStorage("turnSensitivity");
+    document.getElementById("maxSpeed").value =
+      getInputFromLocalStorage("maxSpeed");
+    document.getElementById("numRays").value =
+      getInputFromLocalStorage("numRays");
+    document.getElementById("rayLength").value =
+      getInputFromLocalStorage("rayLength");
+    document.getElementById("traffic").value =
+      getInputFromLocalStorage("traffic");
+    document.getElementById("genSize").value =
+      getInputFromLocalStorage("genSize");
+    document.getElementById("mutationValue").value =
+      getInputFromLocalStorage("mutationValue");
+  }
+}
+
+function getInputFromLocalStorage(input) {
+  return JSON.parse(localStorage.getItem(input));
 }
 
 function saveBrain() {
@@ -71,10 +109,10 @@ function generateCars(N) {
         30,
         50,
         "AI",
-        userInputs.get("maxSpeed"),
-        userInputs.get("turnSensitivity"),
-        userInputs.get("rayLength"),
-        userInputs.get("numRays"),
+        getInputFromLocalStorage("maxSpeed"),
+        getInputFromLocalStorage("turnSensitivity"),
+        getInputFromLocalStorage("rayLength"),
+        getInputFromLocalStorage("numRays"),
         "chartreuse"
       )
     );
@@ -88,7 +126,7 @@ function createTraffic(amountCars) {
     traffic.push(
       new Car(
         road.getLaneCenter(Math.floor(Math.random() * 4)),
-        -i * 120, //* Math.floor(Math.random() * (180 - 90) + 90),
+        -i * 110,
         30,
         50,
         "BOT",
@@ -114,8 +152,8 @@ function animate(time) {
   }
   bestCar = cars.find((c) => c.y == Math.min(...cars.map((c) => c.y)));
 
-  carCanvas.height = window.innerHeight;
-  networkCanvas.height = window.innerHeight;
+  carCanvas.height = innerHeight;
+  networkCanvas.height = innerHeight;
 
   carCtx.save();
   carCtx.translate(0, -bestCar.y + carCanvas.height * 0.8);

@@ -5,34 +5,45 @@
     </title>
     <link rel = "stylesheet" href = "style.css">
 </head>
-<body>
-    <section class="container">
+<body onload = "fillFormFields()">
+    <section class = "container">
         <div id = "settings">
-            <h1>Choose settings for the car.</h1>
-            <label>Turning sensitivity</label>
-            <input id = "turnSensitivity" name = "turnSensitivity" type = "number" value = "0.01">
+            <h1>Fill in values for the car</h1>
+            <label>Turn Sensitivity</label>
+            <input id = "turnSensitivity" name = "turnSensitivity" type = "number" value = "" placeholder = "(1 - 5)" required>
             <label>Max speed</label>
-            <input id = "maxSpeed" name = "maxSpeed" type = "number" value = "3">
+            <input id = "maxSpeed" name = "maxSpeed" type = "number" value = "" placeholder = "(3 - 6)" required>
             <label>Number of rays (sensors)</label>
-            <input id = "numRays" name = "numRays" type = "number" value = "5">
+            <input id = "numRays" name = "numRays" type = "number" value = "" placeholder = "(1 - 10)" required>
             <label>Ray length (in pixels)</label>
-            <input id = "rayLength" name = "rayLength" type = "number" value = "150">
+            <input id = "rayLength" name = "rayLength" type = "number" value = "" placeholder = "(100 - 300)" required>
             <label>Amount of traffic</label>
-            <input id = "traffic" name = "traffic" type = "number" value = "50">
+            <input id = "traffic" name = "traffic" type = "number" value = "" placeholder = "(1 - 150)" required>
             <label>Generation size</label>
-            <input id = "genSize" name = "genSize" type = "number" value = "50">
-            <label>Mutation Value (0 < value < 1). Closer to zero creates less mutations</label>
-            <input id = "mutationValue" name = "mutationValue" type = "number" value = "0.1">
+            <input id = "genSize" name = "genSize" type = "number" value = "" placeholder = "(1 - 150)" required>
+            <label>Mutation Value</label> 
+            <input id = "mutationValue" name = "mutationValue" type = "number" value = "" placeholder = "(0.1 - 1) Closer to 0 creates less mutations" required>
             <div id = "inputButtons">
-                <button onclick = "run()" id = "run">Save inputs and run</button>
-                <button onclick = "window.location.reload();" id = "reset">Refresh page with default values</button>
+                <button onclick = "saveInputsToLocalStorage()">Save inputs</button>
+                <button onclick = "run();" id = "run" >Run</button>
             </div>
             <div id = "brainButtons">
                 <button onclick = "saveBrain()">💾 Save current leader's brain</button>
                 <button onclick = "discardBrain()">🗑️ Reset brain</button>
             </div>
+            <details>
+                <summary>More info</summary>
+                <p id = "details">
+                    Make sure to fill out all fields and click "Save inputs" before clicking "Run".
+                    Try adjusting different inputs to see how the car behaves differently (especially
+                    number of rays, ray length, and mutation value). It may take many runs before you
+                    start to see the kind of behavior you want, but once you do, make sure to save the
+                    brain! Keep mutating to get a smarter car, then try upping the speed!
+                </p>
+            </details>
         </div>
     </section>
+
     <canvas id = "carCanvas"></canvas>
     <canvas id = "networkCanvas"></canvas>
     <script src = "visualizer.js"></script>
