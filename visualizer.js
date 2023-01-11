@@ -20,7 +20,7 @@ class Visualizer {
                 left, levelTop,
                 width, levelHeight,
                 i == network.levels.length - 1
-                ? ["🠩", "🠨", "🠪", "🠫"]
+                ? ["⮝", "⮜", "⮞", "⮟"]
                 : []
             );
         }
@@ -51,7 +51,7 @@ class Visualizer {
                 }
         }
 
-        const nodeRadius = 22;
+        const nodeRadius = 28;
         for (let i = 0; i < inputs.length; i++) {
             const x = Visualizer.#getNodeX(inputs, i, left, right);
             
@@ -93,7 +93,7 @@ class Visualizer {
                 ctx.textBaseline = "middle";
                 ctx.fillStyle = "black";
                 ctx.strokeStyle = "white";
-                ctx.font = (nodeRadius * 1.5) + "px Arial";
+                ctx.font = (nodeRadius) + "px Arial";
                 ctx.fillText(outputLabels[i], x, top + nodeRadius * 0.1);
                 ctx.lineWidth = 0.5;
                 ctx.strokeText(outputLabels[i], x, top + nodeRadius * 0.1);
